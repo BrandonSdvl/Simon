@@ -1,0 +1,10 @@
+@import 'config/colors';
+@import 'config/fonts';
+
+@import 'mixins/breakpoints.scss';
+
+@import 'views/index';
+
+@import 'components/header';
+@import 'components/leaderboards';
+@import 'components/main';
