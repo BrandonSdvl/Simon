@@ -1,10 +1,39 @@
 .header {
     width: 100%;
     height: 60px;
-    background-color: gray;
     top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 5px 3px rgba($color: #000000, $alpha: 0.3);
+    position: fixed;
+    background: linear-gradient(to right, #e14cff 0%, #ff0a64 50%, #ff580a 100%);
 
     .main-title {
-        display: inline;
+        font-family: $main-font;
+        width: auto;
+        padding: 10px;
+        top: 0;
+        font-size: $font-size-medium;
+        font-weight: $big-font;
+        margin-left: 1rem;
+
+        @include tablet {
+            font-size: $font-size-big;
+            font-weight: $big-font;
+            margin-left: 3rem;
+        }
+    }
+
+    .leaderboards {
+        font-weight: $big-font;
+        font-size: $font-size-small;
+        margin-right: 1rem;
+        font-family: $second-font;
+
+        @include tablet {
+            font-size: $font-size-medium;
+            margin-right: 3rem;
+        }
     }
 }
