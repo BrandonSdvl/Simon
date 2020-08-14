@@ -7,7 +7,8 @@
     align-items: center;
     box-shadow: 0 0 5px 3px rgba($color: #000000, $alpha: 0.3);
     position: fixed;
-    background: linear-gradient(to right, #e14cff 0%, #ff0a64 50%, #ff580a 100%);
+    background-color: $main-color;
+    color: $background;
 
     .main-title {
         font-family: $main-font;

@@ -1,31 +1,73 @@
 const main = document.getElementById('main')
 const start = document.getElementById('start')
 const levelHTML = document.getElementById('level')
+const startConfirm = document.getElementById('startConfirm')
+const input = document.getElementById('input')
+const select = document.getElementById('select')
+const fomr = document.getElementById('form')
 
 let pattern = []
 let userSlected = []
 let on = false
 let index = 0
 let level = 0
+let enabled = false
+let time = 500
+let gameOver = false
+let name = ''
+let dificult = ''
 
 main.addEventListener('click', (e) => {
-    if (e.target.id == "start") {
-        levelHTML.style.display = 'block'
-        console.log('start')
+    console.log(userSlected)
+    if (e.target.id == 'start') {
         e.target.disabled = true
-        setColor()
-    } else if (e.target.id == 'green') {
-        userSlected.push('green')
+        document.getElementById('lightbox').classList.add('lightbox--show')
+    }
+    if (enabled) {
+        switch (e.target.id) {
+            case 'green':
+                userSlected.push('green')
+                break
+            case 'red':
+                userSlected.push('red')
+                break
+            case 'yellow':
+                userSlected.push('yellow')
+                break
+            case 'blue':
+                userSlected.push('blue')
+                break
+            default:
+                break;
+        }
         validate()
-    } else if (e.target.id == 'red') {
-        userSlected.push('red')
-        validate()
-    } else if (e.target.id == 'yellow') {
-        userSlected.push('yellow')
-        validate()
-    } else if (e.target.id == 'blue') {
-        userSlected.push('blue')
-        validate()
+    }
+})
+
+startConfirm.addEventListener('click', (e) => {
+    e.preventDefault()
+    name = input.value
+    dificult = select[select.selectedIndex].value
+
+    if (form.checkValidity()) {
+        levelHTML.style.display = 'block'
+        gameOver = false
+        document.getElementById('lightbox').classList.remove('lightbox--show')
+        switch (dificult) {
+            case 'easy':
+                time = 1000
+                break
+            case 'medium':
+                time = 600
+                break
+            case 'hard':
+                time = 200
+                break
+        }
+        console.log(`${name}: ${dificult}`)
+        setTimeout('setColor()', 500)
+    } else if (name == '') {
+        alert('Insert a name')
     }
 })
 
@@ -59,20 +101,19 @@ const setColor = () => {
             document.getElementById('red').classList.add('red__enabled')
             document.getElementById('yellow').classList.add('yellow__enabled')
             document.getElementById('blue').classList.add('blue__enabled')
+            enabled = true
             clearInterval(timer)
         } else {
             if (on) {
                 document.getElementById(pattern[index]).classList.remove(`${pattern[index]}__light`)
-                console.log('off')
                 on = false
                 index += 1
             } else {
                 document.getElementById(pattern[index]).classList.add(`${pattern[index]}__light`)
-                console.log('on')
                 on = true
             }
         }
-    }, 1000)
+    }, time)
 }
 
 const validate = () => {
@@ -81,19 +122,31 @@ const validate = () => {
         console.log('correct')
         current += 1
     } else {
+        start.disabled = false
         current = 0
         start.innerHTML = 'Error'
         console.log('error')
+        gameOver = true
+        reset()
     }
 
-    if (current == pattern.length) {
-        start.disabled = false
+    if (current == pattern.length && !gameOver) {
         start.innerHTML = 'Correct'
         userSlected = []
         document.getElementById('green').classList.remove('green__enabled')
         document.getElementById('red').classList.remove('red__enabled')
         document.getElementById('yellow').classList.remove('yellow__enabled')
         document.getElementById('blue').classList.remove('blue__enabled')
-        setTimeout('setColor()', 1000)
+        enabled = false
+        setTimeout('setColor()', time)
     }
+}
+
+const reset = () => {
+    pattern = []
+    userSlected = []
+    level = 0
+    start.innerHTML = 'Start'
+    levelHTML.firstElementChild.innerHTML = level
+    levelHTML.style.display = 'none'
 }

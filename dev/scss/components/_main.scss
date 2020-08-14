@@ -141,7 +141,9 @@
         font-size: $font-size-big;
     }
 
-    &:hover {
-        transform: scale(1.1);
+    &:enabled {
+        &:hover {
+            transform: scale(1.1);
+        }
     }
 }
