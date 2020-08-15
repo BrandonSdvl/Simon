@@ -6,6 +6,9 @@ const input = document.getElementById('input')
 const select = document.getElementById('select')
 const fomr = document.getElementById('form')
 
+const leaderboards = document.getElementById('leaderboards')
+const table = document.getElementById('table')
+
 let pattern = []
 let userSlected = []
 let on = false
@@ -150,3 +153,10 @@ const reset = () => {
     levelHTML.firstElementChild.innerHTML = level
     levelHTML.style.display = 'none'
 }
+
+leaderboards.addEventListener('click', (e) => {
+    if (e.target.id != null) {
+        document.getElementById('arrow').classList.toggle('icon--rotate')
+        table.classList.toggle('table--show')
+    }
+})

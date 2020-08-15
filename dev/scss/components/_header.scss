@@ -31,10 +31,90 @@
         font-size: $font-size-small;
         margin-right: 1rem;
         font-family: $second-font;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        height: 40px;
+        width: 185px;
+        padding-left: 10px;
+        // background-color: transparentize($color: $background, $amount: .6);
+        background-color: $black;
+        border-radius: 5px;
+        z-index: 100;
 
         @include tablet {
+            width: 235px;
             font-size: $font-size-medium;
             margin-right: 3rem;
         }
+
+        .table {
+            width: 150px;
+            position: absolute;
+            z-index: 10;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            background-color: #f2f2f2;
+            box-shadow: 0 0 10px 10px rgba($color: #000000, $alpha: .3);
+            border: none;
+            display: grid;
+            grid-template-columns: 70% 30%;
+            grid-template-rows: repeat(9, 1fr);
+            color: #000000;
+            padding: 0 10px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            font-size: $font-size-small;
+            transition: transform .2s ease-in, height .2s ease-in;
+            height: 0;
+            transform: translateY(20px);
+            z-index: 1000;
+
+
+            @include tablet {
+                width: 200px;
+            }
+
+            .player,
+            .score {
+                border-bottom: 1px solid rgba($color: #000000, $alpha: .3);
+                display: flex;
+                align-items: center;
+            }
+
+            .score {
+                justify-content: center;
+                color: $main-color;
+                font-weight: $big-font
+            }
+
+            &__header {
+                border: 2.5px dashed black;
+                padding: 3px;
+                text-align: center;
+                margin-top: 8px;
+                margin-right: 5px;
+            }
+        }
+
+        .icon--rotate {
+            transform: rotate(180deg);
+        }
+
+        .table--show {
+            transform: translateY(170px);
+            height: 300px;
+        }
     }
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .2s ease-in;
+    margin-left: 10px;
+    padding-bottom: 13px;
 }

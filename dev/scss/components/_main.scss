@@ -15,12 +15,13 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     grid-gap: 10px;
-    position: absolute;
+    position: relative;
     top: 50px;
     left: 0;
     bottom: 0;
     right: 0;
     margin: 70px auto auto auto;
+    z-index: -10;
 
     @include tablet {
         grid-gap: 15px;
