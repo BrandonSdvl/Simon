@@ -4,10 +4,6 @@ const levelHTML = document.getElementById('level')
 const startConfirm = document.getElementById('startConfirm')
 const input = document.getElementById('input')
 const select = document.getElementById('select')
-const fomr = document.getElementById('form')
-
-const leaderboards = document.getElementById('leaderboards')
-const table = document.getElementById('table')
 
 let pattern = []
 let userSlected = []
@@ -20,8 +16,9 @@ let gameOver = false
 let name = ''
 let dificult = ''
 
+loadLearederboards()
+
 main.addEventListener('click', (e) => {
-    console.log(userSlected)
     if (e.target.id == 'start') {
         e.target.disabled = true
         document.getElementById('lightbox').classList.add('lightbox--show')
@@ -56,6 +53,7 @@ startConfirm.addEventListener('click', (e) => {
         levelHTML.style.display = 'block'
         gameOver = false
         document.getElementById('lightbox').classList.remove('lightbox--show')
+        createPlayer()
         switch (dificult) {
             case 'easy':
                 time = 1000
@@ -67,7 +65,6 @@ startConfirm.addEventListener('click', (e) => {
                 time = 200
                 break
         }
-        console.log(`${name}: ${dificult}`)
         setTimeout('setColor()', 500)
     } else if (name == '') {
         alert('Insert a name')
@@ -76,6 +73,10 @@ startConfirm.addEventListener('click', (e) => {
 
 const setColor = () => {
     level += 1
+    setLeaderboards()
+    localStorage.setItem('players', JSON.stringify(players))
+    table.innerHTML = '<div class="table__header">Name</div><div class="table__header">Lvl</div>'
+    loadLearederboards()
     start.innerHTML = '...'
     levelHTML.firstElementChild.innerHTML = level
     let color = Math.floor(Math.random() * 4) + 1
@@ -95,8 +96,8 @@ const setColor = () => {
     }
 
     const timer = setInterval(() => {
-        console.log(pattern)
         if (index >= pattern.length) {
+            console.log(pattern)
             index = 0
             on = false
             start.innerHTML = 'Select'
@@ -122,13 +123,11 @@ const setColor = () => {
 const validate = () => {
     let current = userSlected.length - 1
     if (userSlected[current] == pattern[current]) {
-        console.log('correct')
         current += 1
     } else {
         start.disabled = false
         current = 0
         start.innerHTML = 'Error'
-        console.log('error')
         gameOver = true
         reset()
     }
@@ -152,11 +151,10 @@ const reset = () => {
     start.innerHTML = 'Start'
     levelHTML.firstElementChild.innerHTML = level
     levelHTML.style.display = 'none'
+    currentPlayer = ''
+    currentScore = ''
+    position = 0
+    players = JSON.parse(localStorage.getItem('players'))
+    table.innerHTML = '<div class="table__header">Name</div><div class="table__header">Lvl</div>'
+    loadLearederboards()
 }
-
-leaderboards.addEventListener('click', (e) => {
-    if (e.target.id != null) {
-        document.getElementById('arrow').classList.toggle('icon--rotate')
-        table.classList.toggle('table--show')
-    }
-})
