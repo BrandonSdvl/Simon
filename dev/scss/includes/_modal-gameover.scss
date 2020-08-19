@@ -1,0 +1,22 @@
+.container__gameover {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+
+    .text {
+        display: flex;
+        margin-bottom: 20px;
+        text-align: center;
+        justify-content: center;
+        width: 100%;
+        font-size: $font-size-big;
+
+        span {
+            margin: 0;
+            width: auto;
+            margin-left: 10px;
+        }
+    }
+}

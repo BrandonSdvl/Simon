@@ -1,9 +1,15 @@
 const main = document.getElementById('main')
 const start = document.getElementById('start')
 const levelHTML = document.getElementById('level')
+const nameHTML = document.getElementById('name')
+const titles = document.getElementById('titles')
 const startConfirm = document.getElementById('startConfirm')
 const input = document.getElementById('input')
 const select = document.getElementById('select')
+const modalEnd = document.getElementById('modalEnd')
+const nameEnd = document.getElementById('nameEnd')
+const scoreEnd = document.getElementById('scoreEnd')
+const restart = document.getElementById('restart')
 
 let pattern = []
 let userSlected = []
@@ -14,7 +20,7 @@ let enabled = false
 let time = 500
 let gameOver = false
 let name = ''
-let dificult = ''
+let speed = ''
 
 loadLearederboards()
 
@@ -47,21 +53,22 @@ main.addEventListener('click', (e) => {
 startConfirm.addEventListener('click', (e) => {
     e.preventDefault()
     name = input.value
-    dificult = select[select.selectedIndex].value
+    nameHTML.textContent = name
+    speed = select[select.selectedIndex].value
 
     if (form.checkValidity()) {
-        levelHTML.style.display = 'block'
+        titles.style.display = 'flex'
         gameOver = false
         document.getElementById('lightbox').classList.remove('lightbox--show')
         createPlayer()
-        switch (dificult) {
-            case 'easy':
+        switch (speed) {
+            case 'slow':
                 time = 1000
                 break
             case 'medium':
                 time = 600
                 break
-            case 'hard':
+            case 'fast':
                 time = 200
                 break
         }
@@ -77,8 +84,8 @@ const setColor = () => {
     localStorage.setItem('players', JSON.stringify(players))
     table.innerHTML = '<div class="table__header">Name</div><div class="table__header">Lvl</div>'
     loadLearederboards()
-    start.innerHTML = '...'
-    levelHTML.firstElementChild.innerHTML = level
+    start.textContent = '...'
+    levelHTML.firstElementChild.textContent = level
     let color = Math.floor(Math.random() * 4) + 1
     switch (color) {
         case 1:
@@ -100,7 +107,7 @@ const setColor = () => {
             console.log(pattern)
             index = 0
             on = false
-            start.innerHTML = 'Select'
+            start.textContent = 'Select'
             document.getElementById('green').classList.add('green__enabled')
             document.getElementById('red').classList.add('red__enabled')
             document.getElementById('yellow').classList.add('yellow__enabled')
@@ -127,13 +134,15 @@ const validate = () => {
     } else {
         start.disabled = false
         current = 0
-        start.innerHTML = 'Error'
+        start.textContent = 'Error'
         gameOver = true
-        reset()
+        nameEnd.textContent = name
+        scoreEnd.textContent = level
+        modalEnd.classList.add('lightbox--show')
     }
 
     if (current == pattern.length && !gameOver) {
-        start.innerHTML = 'Correct'
+        start.textContent = 'Correct'
         userSlected = []
         document.getElementById('green').classList.remove('green__enabled')
         document.getElementById('red').classList.remove('red__enabled')
@@ -148,9 +157,9 @@ const reset = () => {
     pattern = []
     userSlected = []
     level = 0
-    start.innerHTML = 'Start'
-    levelHTML.firstElementChild.innerHTML = level
-    levelHTML.style.display = 'none'
+    start.textContent = 'Start'
+    levelHTML.firstElementChild.textContent = level
+    titles.style.display = 'none'
     currentPlayer = ''
     currentScore = ''
     position = 0
@@ -158,3 +167,8 @@ const reset = () => {
     table.innerHTML = '<div class="table__header">Name</div><div class="table__header">Lvl</div>'
     loadLearederboards()
 }
+
+restart.addEventListener('click', () => {
+    reset()
+    modalEnd.classList.remove('lightbox--show')
+})

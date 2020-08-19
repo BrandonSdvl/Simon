@@ -40,8 +40,7 @@ const setLeaderboards = () => {
             position = i
             players.splice(i, 0, {
                 name: name,
-                level: level,
-                dificult: dificult
+                level: level
             })
             return 0
         }
@@ -51,8 +50,7 @@ const setLeaderboards = () => {
     position = players.length - 1
     players[players.length - 1] = {
         name: name,
-        level: level,
-        dificult: dificult
+        level: level
     }
 }
 
@@ -65,8 +63,7 @@ const createPlayer = () => {
     // Add a new element to the end of the array
     players.push({
         name: name,
-        level: level,
-        dificult: dificult
+        level: level
     })
 
     // Update localStorage

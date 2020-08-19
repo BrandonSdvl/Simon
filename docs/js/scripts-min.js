@@ -43,8 +43,7 @@ var setLeaderboards = function setLeaderboards() {
       position = i;
       players.splice(i, 0, {
         name: name,
-        level: level,
-        dificult: dificult
+        level: level
       });
       return 0;
     }
@@ -54,8 +53,7 @@ var setLeaderboards = function setLeaderboards() {
   position = players.length - 1;
   players[players.length - 1] = {
     name: name,
-    level: level,
-    dificult: dificult
+    level: level
   };
 };
 
@@ -68,8 +66,7 @@ var createPlayer = function createPlayer() {
 
   players.push({
     name: name,
-    level: level,
-    dificult: dificult
+    level: level
   }); // Update localStorage
 
   localStorage.setItem('players', JSON.stringify(players));
@@ -78,9 +75,15 @@ var createPlayer = function createPlayer() {
 var main = document.getElementById('main');
 var start = document.getElementById('start');
 var levelHTML = document.getElementById('level');
+var nameHTML = document.getElementById('name');
+var titles = document.getElementById('titles');
 var startConfirm = document.getElementById('startConfirm');
 var input = document.getElementById('input');
 var select = document.getElementById('select');
+var modalEnd = document.getElementById('modalEnd');
+var nameEnd = document.getElementById('nameEnd');
+var scoreEnd = document.getElementById('scoreEnd');
+var restart = document.getElementById('restart');
 var pattern = [];
 var userSlected = [];
 var on = false;
@@ -90,7 +93,7 @@ var enabled = false;
 var time = 500;
 var gameOver = false;
 var name = '';
-var dificult = '';
+var speed = '';
 loadLearederboards();
 main.addEventListener('click', function (e) {
   if (e.target.id == 'start') {
@@ -126,16 +129,17 @@ main.addEventListener('click', function (e) {
 startConfirm.addEventListener('click', function (e) {
   e.preventDefault();
   name = input.value;
-  dificult = select[select.selectedIndex].value;
+  nameHTML.textContent = name;
+  speed = select[select.selectedIndex].value;
 
   if (form.checkValidity()) {
-    levelHTML.style.display = 'block';
+    titles.style.display = 'flex';
     gameOver = false;
     document.getElementById('lightbox').classList.remove('lightbox--show');
     createPlayer();
 
-    switch (dificult) {
-      case 'easy':
+    switch (speed) {
+      case 'slow':
         time = 1000;
         break;
 
@@ -143,7 +147,7 @@ startConfirm.addEventListener('click', function (e) {
         time = 600;
         break;
 
-      case 'hard':
+      case 'fast':
         time = 200;
         break;
     }
@@ -160,8 +164,8 @@ var setColor = function setColor() {
   localStorage.setItem('players', JSON.stringify(players));
   table.innerHTML = '<div class="table__header">Name</div><div class="table__header">Lvl</div>';
   loadLearederboards();
-  start.innerHTML = '...';
-  levelHTML.firstElementChild.innerHTML = level;
+  start.textContent = '...';
+  levelHTML.firstElementChild.textContent = level;
   var color = Math.floor(Math.random() * 4) + 1;
 
   switch (color) {
@@ -187,7 +191,7 @@ var setColor = function setColor() {
       console.log(pattern);
       index = 0;
       on = false;
-      start.innerHTML = 'Select';
+      start.textContent = 'Select';
       document.getElementById('green').classList.add('green__enabled');
       document.getElementById('red').classList.add('red__enabled');
       document.getElementById('yellow').classList.add('yellow__enabled');
@@ -215,13 +219,15 @@ var validate = function validate() {
   } else {
     start.disabled = false;
     current = 0;
-    start.innerHTML = 'Error';
+    start.textContent = 'Error';
     gameOver = true;
-    reset();
+    nameEnd.textContent = name;
+    scoreEnd.textContent = level;
+    modalEnd.classList.add('lightbox--show');
   }
 
   if (current == pattern.length && !gameOver) {
-    start.innerHTML = 'Correct';
+    start.textContent = 'Correct';
     userSlected = [];
     document.getElementById('green').classList.remove('green__enabled');
     document.getElementById('red').classList.remove('red__enabled');
@@ -236,9 +242,9 @@ var reset = function reset() {
   pattern = [];
   userSlected = [];
   level = 0;
-  start.innerHTML = 'Start';
-  levelHTML.firstElementChild.innerHTML = level;
-  levelHTML.style.display = 'none';
+  start.textContent = 'Start';
+  levelHTML.firstElementChild.textContent = level;
+  titles.style.display = 'none';
   currentPlayer = '';
   currentScore = '';
   position = 0;
@@ -246,3 +252,8 @@ var reset = function reset() {
   table.innerHTML = '<div class="table__header">Name</div><div class="table__header">Lvl</div>';
   loadLearederboards();
 };
+
+restart.addEventListener('click', function () {
+  reset();
+  modalEnd.classList.remove('lightbox--show');
+});
