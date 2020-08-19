@@ -60,87 +60,19 @@
 }
 
 .green {
-    background-color: $green;
-
-    &__light {
-        background-color: lighten($green, 20%);
-    }
-
-    &__enabled {
-        cursor: pointer;
-
-        &:hover {
-            background-color: lighten($green, 20%);
-        }
-
-        &:active,
-        &:focus {
-            background-color: lighten($green, 30%);
-        }
-    }
+    @include setColor($green);
 }
 
 .red {
-    background-color: $red;
-
-    &__light {
-        background-color: lighten($red, 20%);
-    }
-
-    &__enabled {
-        cursor: pointer;
-
-        &:hover {
-            background-color: lighten($red, 20%);
-        }
-
-        &:active,
-        &:focus {
-            background-color: lighten($red, 30%);
-        }
-    }
+    @include setColor($red);
 }
 
 .yellow {
-    background-color: $yellow;
-
-    &__light {
-        background-color: lighten($yellow, 20%);
-    }
-
-    &__enabled {
-        cursor: pointer;
-
-        &:hover {
-            background-color: lighten($yellow, 20%);
-        }
-
-        &:active,
-        &:focus {
-            background-color: lighten($yellow, 30%);
-        }
-    }
+    @include setColor($yellow);
 }
 
 .blue {
-    background-color: $blue;
-
-    &__light {
-        background-color: lighten($blue, 20%);
-    }
-
-    &__enabled {
-        cursor: pointer;
-
-        &:hover {
-            background-color: lighten($blue, 20%);
-        }
-
-        &:active,
-        &:focus {
-            background-color: lighten($blue, 30%);
-        }
-    }
+    @include setColor($blue);
 }
 
 .center {

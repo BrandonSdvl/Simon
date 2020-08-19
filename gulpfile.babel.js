@@ -45,7 +45,7 @@ gulp.task("babel", () => {
     .pipe(plumber())
     .pipe(concat("scripts-min.js"))
     .pipe(babel())
-    // .pipe(terser())
+    .pipe(terser())
     .pipe(gulp.dest("./docs/js"));
 });
 

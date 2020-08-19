@@ -1,0 +1,20 @@
+@mixin setColor($color) {
+    background-color: $color;
+
+    &__light {
+        background-color: lighten($color, 20%);
+    }
+
+    &__enabled {
+        cursor: pointer;
+
+        &:hover {
+            background-color: lighten($color, 20%);
+        }
+
+        &:active,
+        &:focus {
+            background-color: lighten($color, 30%);
+        }
+    }
+}

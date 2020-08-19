@@ -11,8 +11,10 @@ const nameEnd = document.getElementById('nameEnd')
 const scoreEnd = document.getElementById('scoreEnd')
 const restart = document.getElementById('restart')
 
+// Create an array to save the pattern and another to store the colors selected by the user, and then perform a check comparing each element in the array created by the random function and the colors selected by the player
 let pattern = []
 let userSlected = []
+
 let on = false
 let index = 0
 let level = 0
@@ -22,6 +24,7 @@ let gameOver = false
 let name = ''
 let speed = ''
 
+// Initialize the leaderboards
 loadLearederboards()
 
 main.addEventListener('click', (e) => {
@@ -29,6 +32,7 @@ main.addEventListener('click', (e) => {
         e.target.disabled = true
         document.getElementById('lightbox').classList.add('lightbox--show')
     }
+    // Store the color selected by the user and perform the validation
     if (enabled) {
         switch (e.target.id) {
             case 'green':
@@ -51,6 +55,7 @@ main.addEventListener('click', (e) => {
 })
 
 startConfirm.addEventListener('click', (e) => {
+    // Initialize variables
     e.preventDefault()
     name = input.value
     nameHTML.textContent = name
@@ -79,6 +84,7 @@ startConfirm.addEventListener('click', (e) => {
 })
 
 const setColor = () => {
+    // Update the leaderboard and the level
     level += 1
     setLeaderboards()
     localStorage.setItem('players', JSON.stringify(players))
@@ -86,6 +92,7 @@ const setColor = () => {
     loadLearederboards()
     start.textContent = '...'
     levelHTML.firstElementChild.textContent = level
+    // Generate the random pattern
     let color = Math.floor(Math.random() * 4) + 1
     switch (color) {
         case 1:
@@ -104,7 +111,6 @@ const setColor = () => {
 
     const timer = setInterval(() => {
         if (index >= pattern.length) {
-            console.log(pattern)
             index = 0
             on = false
             start.textContent = 'Select'
@@ -115,6 +121,7 @@ const setColor = () => {
             enabled = true
             clearInterval(timer)
         } else {
+            // Turn item on/off according to pattern
             if (on) {
                 document.getElementById(pattern[index]).classList.remove(`${pattern[index]}__light`)
                 on = false
@@ -128,6 +135,7 @@ const setColor = () => {
 }
 
 const validate = () => {
+    // Validate if the color selected by the user is correct according to the pattern
     let current = userSlected.length - 1
     if (userSlected[current] == pattern[current]) {
         current += 1
@@ -141,6 +149,7 @@ const validate = () => {
         modalEnd.classList.add('lightbox--show')
     }
 
+    // End game on error
     if (current == pattern.length && !gameOver) {
         start.textContent = 'Correct'
         userSlected = []
