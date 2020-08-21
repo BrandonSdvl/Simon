@@ -8,13 +8,16 @@
     &__enabled {
         cursor: pointer;
 
-        &:hover {
-            background-color: lighten($color, 20%);
+        @include laptop {
+            &:hover {
+                background-color: lighten($color, 20%);
+            }
         }
 
-        &:active,
-        &:focus {
-            background-color: lighten($color, 30%);
+        @include mobile {
+            &:active {
+                background-color: lighten($color, 30%);
+            }
         }
     }
 }
