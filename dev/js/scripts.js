@@ -64,6 +64,8 @@ startConfirm.addEventListener('click', (e) => {
     if (form.checkValidity()) {
         titles.style.display = 'flex'
         gameOver = false
+        input.value = ''
+        select.selectedIndex = 0
         document.getElementById('lightbox').classList.remove('lightbox--show')
         createPlayer()
         switch (speed) {
@@ -149,7 +151,7 @@ const validate = () => {
         modalEnd.classList.add('lightbox--show')
     }
 
-    // End game on error
+    // Validate if it is the last element to selected and turn on the pattern
     if (current == pattern.length && !gameOver) {
         start.textContent = 'Correct'
         userSlected = []
@@ -165,6 +167,8 @@ const validate = () => {
 const reset = () => {
     pattern = []
     userSlected = []
+    name = ""
+    enabled = false
     level = 0
     start.textContent = 'Start'
     levelHTML.firstElementChild.textContent = level
@@ -173,6 +177,10 @@ const reset = () => {
     currentScore = ''
     position = 0
     players = JSON.parse(localStorage.getItem('players'))
+    document.getElementById('green').classList.remove('green__enabled')
+    document.getElementById('red').classList.remove('red__enabled')
+    document.getElementById('yellow').classList.remove('yellow__enabled')
+    document.getElementById('blue').classList.remove('blue__enabled')
     table.innerHTML = '<div class="table__header">Name</div><div class="table__header">Lvl</div>'
     loadLearederboards()
 }
