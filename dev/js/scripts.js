@@ -61,7 +61,7 @@ startConfirm.addEventListener('click', (e) => {
     nameHTML.textContent = name
     speed = select[select.selectedIndex].value
 
-    if (form.checkValidity()) {
+    if (name != "") {
         titles.style.display = 'flex'
         gameOver = false
         input.value = ''
