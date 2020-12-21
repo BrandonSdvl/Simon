@@ -6,7 +6,7 @@ let currentScore = ''
 let position = 0
 
 leaderboards.addEventListener('click', (e) => {
-    if (e.target.id != null) {
+    if (e.target.id !== null) {
         document.getElementById('arrow').classList.toggle('icon--rotate')
         table.classList.toggle('table--show')
     }

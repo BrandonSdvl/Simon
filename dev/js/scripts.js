@@ -10,6 +10,10 @@ const modalEnd = document.getElementById('modalEnd')
 const nameEnd = document.getElementById('nameEnd')
 const scoreEnd = document.getElementById('scoreEnd')
 const restart = document.getElementById('restart')
+const green = document.getElementById('green')
+const red = document.getElementById('red')
+const yellow = document.getElementById('yellow')
+const blue = document.getElementById('blue')
 
 // Create an array to save the pattern and another to store the colors selected by the user, and then perform a check comparing each element in the array created by the random function and the colors selected by the player
 let pattern = []
@@ -28,7 +32,7 @@ let speed = ''
 loadLearederboards()
 
 main.addEventListener('click', (e) => {
-    if (e.target.id == 'start') {
+    if (e.target.id === 'start') {
         e.target.disabled = true
         document.getElementById('lightbox').classList.add('lightbox--show')
     }
@@ -61,7 +65,7 @@ startConfirm.addEventListener('click', (e) => {
     nameHTML.textContent = name
     speed = select[select.selectedIndex].value
 
-    if (name != "") {
+    if (name !== "") {
         titles.style.display = 'flex'
         gameOver = false
         input.value = ''
@@ -80,7 +84,7 @@ startConfirm.addEventListener('click', (e) => {
                 break
         }
         setTimeout('setColor()', 500)
-    } else if (name == '') {
+    } else if (name === '') {
         alert('Insert a name')
     }
 })
@@ -116,10 +120,10 @@ const setColor = () => {
             index = 0
             on = false
             start.textContent = 'Select'
-            document.getElementById('green').classList.add('green__enabled')
-            document.getElementById('red').classList.add('red__enabled')
-            document.getElementById('yellow').classList.add('yellow__enabled')
-            document.getElementById('blue').classList.add('blue__enabled')
+            green.classList.add('green__enabled')
+            red.classList.add('red__enabled')
+            yellow.classList.add('yellow__enabled')
+            blue.classList.add('blue__enabled')
             enabled = true
             clearInterval(timer)
         } else {
@@ -139,7 +143,7 @@ const setColor = () => {
 const validate = () => {
     // Validate if the color selected by the user is correct according to the pattern
     let current = userSlected.length - 1
-    if (userSlected[current] == pattern[current]) {
+    if (userSlected[current] === pattern[current]) {
         current += 1
     } else {
         start.disabled = false
@@ -152,13 +156,13 @@ const validate = () => {
     }
 
     // Validate if it is the last element to selected and turn on the pattern
-    if (current == pattern.length && !gameOver) {
+    if (current === pattern.length && !gameOver) {
         start.textContent = 'Correct'
         userSlected = []
-        document.getElementById('green').classList.remove('green__enabled')
-        document.getElementById('red').classList.remove('red__enabled')
-        document.getElementById('yellow').classList.remove('yellow__enabled')
-        document.getElementById('blue').classList.remove('blue__enabled')
+        green.classList.remove('green__enabled')
+        red.classList.remove('red__enabled')
+        yellow.classList.remove('yellow__enabled')
+        blue.classList.remove('blue__enabled')
         enabled = false
         setTimeout('setColor()', time)
     }
@@ -177,10 +181,10 @@ const reset = () => {
     currentScore = ''
     position = 0
     players = JSON.parse(localStorage.getItem('players'))
-    document.getElementById('green').classList.remove('green__enabled')
-    document.getElementById('red').classList.remove('red__enabled')
-    document.getElementById('yellow').classList.remove('yellow__enabled')
-    document.getElementById('blue').classList.remove('blue__enabled')
+    green.classList.remove('green__enabled')
+    red.classList.remove('red__enabled')
+    yellow.classList.remove('yellow__enabled')
+    blue.classList.remove('blue__enabled')
     table.innerHTML = '<div class="table__header">Name</div><div class="table__header">Lvl</div>'
     loadLearederboards()
 }
