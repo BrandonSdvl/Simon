@@ -2,7 +2,7 @@
 
 ## Overview
 
-![screenshot](./src/assets/preview.png)
+![screenshot](./docs/assets/img/preview.png)
 
 This is a practice created using JS without frameworks, which is the classic Simon game and has a local leaderboard to see your best scores. You can visit it [HERE](https://brandonsdvl.github.io/Simon/).
 
