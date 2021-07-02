@@ -3,7 +3,6 @@
     font-size: $font-size-small;
     margin-right: 1rem;
     font-family: $second-font;
-    display: flex;
     align-items: center;
     cursor: pointer;
     height: 40px;
@@ -19,10 +18,16 @@
         margin-right: 3rem;
     }
 
+    &__header {
+        display: flex;
+        height: 40px;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 10px;
+    }
+
     .table {
         width: 150px;
-        position: absolute;
-        z-index: 10;
         border-bottom-right-radius: 10px;
         border-bottom-left-radius: 10px;
         background-color: #f2f2f2;
@@ -33,12 +38,10 @@
         grid-template-rows: repeat(9, 1fr);
         color: #000000;
         padding: 0 10px;
-        overflow-x: hidden;
-        overflow-y: auto;
+        overflow: hidden;
         font-size: $font-size-small;
-        transition: transform .2s ease-in, height .2s ease-in;
-        height: 0;
-        transform: translateY(20px);
+        transition: max-height 0.3s;
+        max-height: 0;
         z-index: 1000;
 
         @include tablet {
@@ -65,15 +68,14 @@
             margin-top: 8px;
             margin-right: 5px;
         }
+
+        &--show {
+            max-height: 300px;
+        }
     }
 
     .icon--rotate {
         transform: rotate(180deg);
-    }
-
-    .table--show {
-        transform: translateY(170px);
-        height: 300px;
     }
 }
 
@@ -84,6 +86,5 @@
     align-items: center;
     justify-content: center;
     transition: transform .2s ease-in;
-    margin-left: 10px;
     padding-bottom: 13px;
 }
